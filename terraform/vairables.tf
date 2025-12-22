@@ -1,6 +1,6 @@
-variable "resource_group_name" {  #r1 is used to differentiate from other resource groups
+variable "resource_group_name" {  
     type = string
-    default = jenkins-tf-1 # default name for resource group
+    default = "jenkins-tf-1" # default name for resource group
     description = "Name of the Resource Group"
 }
 
