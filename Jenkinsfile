@@ -7,8 +7,8 @@ pipeline {
             steps {
                 sh 'pwd'     
                 sh 'ls -l'
-                sh 'chmod +x build.sh'
-                sh './build.sh'
+                sh 'chmod +x scripts/build.sh'
+                sh './scripts/build.sh'
             }
         }
 
