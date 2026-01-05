@@ -1,40 +1,55 @@
 pipeline {
     agent any
 
+    environment {
+        ARM_CLIENT_ID       = credentials('ARM_CLIENT_ID')
+        ARM_CLIENT_SECRET   = credentials('ARM_CLIENT_SECRET')
+        ARM_TENANT_ID       = credentials('ARM_TENANT_ID')
+        ARM_SUBSCRIPTION_ID = credentials('ARM_SUBSCRIPTION_ID')
+    }
+
     stages {
 
-        stage ('Build Application') {
+        stage('Build Application') {
             steps {
-                sh 'pwd'     
+                sh 'pwd'
                 sh 'ls -l'
                 sh 'chmod +x scripts/build.sh'
                 sh './scripts/build.sh'
             }
         }
 
-        stage ('Terraform Initialization') {
+        stage('Terraform Initialization') {
             steps {
-                sh 'terraform init'
-            }
-        }
-         
-        stage ('Terraform Validate') {
-            steps {
-                sh 'terraform validate'
-            }
-        }
-        
-        stage ('Terraform Plan') {
-            steps {
-                sh 'terraform plan'
+                dir('terraform') {
+                    sh 'terraform init'
+                }
             }
         }
 
-        stage ('Terraform Apply') {
+        stage('Terraform Validate') {
             steps {
-                sh 'terraform apply -auto-approve'
+                dir('terraform') {
+                    sh 'terraform validate'
+                }
             }
-        }   
+        }
+
+        stage('Terraform Plan') {
+            steps {
+                dir('terraform') {
+                    sh 'terraform plan'
+                }
+            }
+        }
+
+        stage('Terraform Apply') {
+            steps {
+                dir('terraform') {
+                    sh 'terraform apply -auto-approve'
+                }
+            }
+        }
     }
 
     post {
