@@ -5,6 +5,8 @@ pipeline {
 
         stage ('Build Application') {
             steps {
+                sh 'pwd'     
+                sh 'ls -l'
                 sh 'chmod +x build.sh'
                 sh './build.sh'
             }
