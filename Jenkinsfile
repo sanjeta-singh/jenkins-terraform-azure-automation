@@ -3,38 +3,38 @@ pipeline {
 
     stages {
 
-        stage {'Checkout code'} {
+        stage ('Checkout code') {
             steps {
                 git branch: 'main', url: 'https://github.com/sanjeta-singh/jenkins-terraform-azure-automation.git'
             }
         }
 
-        stage {'Build Application'} {
+        stage ('Build Application') {
             steps {
                 sh 'chmod +x build.sh'
                 sh './build.sh'
             }
         }
 
-        stage {'Terraform Initialization'} {
+        stage ('Terraform Initialization') {
             steps {
                 sh 'terraform init'
             }
         }
          
-        stage {'Terraform Validate'}{
+        stage ('Terraform Validate') {
             steps {
                 sh 'terraform validate'
             }
         }
         
-        stage {'Terraform Plan'} {
+        stage ('Terraform Plan') {
             steps {
                 sh 'terraform plan'
             }
         }
 
-        stage {'Terraform Apply'} {
+        stage ('Terraform Apply') {
             steps {
                 sh 'terraform apply -auto-approve'
             }
