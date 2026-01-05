@@ -3,12 +3,6 @@ pipeline {
 
     stages {
 
-        stage ('Checkout code') {
-            steps {
-                git branch: 'main', url: 'https://github.com/sanjeta-singh/jenkins-terraform-azure-automation.git'
-            }
-        }
-
         stage ('Build Application') {
             steps {
                 sh 'chmod +x build.sh'
