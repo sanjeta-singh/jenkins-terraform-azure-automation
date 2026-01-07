@@ -45,3 +45,21 @@ variable "subnet_address_space" {
     default = ["10.0.1.0/24"]
     description = "CIDR block for the Subnet"
 }
+
+variable "public_ip_name" {
+    type = string
+    default = "jk-tf-proj"
+    description = "Name of the Public IP"
+}
+
+variable "network_interface_name" {
+    type = string
+    default = "jenkins-nic"
+    description = "Name of the Network Interface"
+}
+
+variable "vm_name" {
+    type    = string
+    default = "jk-tf-vm"
+    description = "The name of the Virtual Machine in Azure"
+}
