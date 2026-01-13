@@ -2,10 +2,10 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      # Pinned to the stable 4.x release as of Jan 2026
-      version = "4.57.0" 
+      version = "~>4.57.0" 
     }
   }
+  required_version = ">= 1.3.0"
 }
 
 provider "azurerm" {
@@ -43,7 +43,6 @@ resource "azurerm_network_security_group" "nsg" {
   name                = "jenkins-nsg"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-
   security_rule {
     name                       = "SSH"
     priority                   = 1001
