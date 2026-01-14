@@ -24,7 +24,7 @@ variable "admin_username_vm" {
 
 variable "vnet_cidr_address_space" {
     type = list(string)
-    default = ["10.0.0.0/28"]
+    default = ["10.0.0.0/24"]
     description = "CIDR block for the Virtual Network"
 }
 
@@ -42,7 +42,7 @@ variable "subnet_name" {
 
 variable "subnet_address_space" {
     type = list(string)
-    default = ["10.0.1.0/30"]
+    default = ["10.0.1.0/27"]
     description = "CIDR block for the Subnet"
 }
 
