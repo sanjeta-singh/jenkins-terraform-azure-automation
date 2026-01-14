@@ -24,7 +24,7 @@ variable "admin_username_vm" {
 
 variable "vnet_cidr_address_space" {
     type = list(string)
-    default = ["10.0.0.0/12"]
+    default = ["10.0.0.0/23"]
     description = "CIDR block for the Virtual Network"
 }
 
@@ -42,7 +42,7 @@ variable "subnet_name" {
 
 variable "subnet_address_space" {
     type = list(string)
-    default = ["10.0.1.0/24"]
+    default = ["10.0.1.0/25"]
     description = "CIDR block for the Subnet"
 }
 
@@ -63,3 +63,5 @@ variable "vm_name" {
     default = "jk-tf-vm"
     description = "The name of the Virtual Machine in Azure"
 }
+
+    
