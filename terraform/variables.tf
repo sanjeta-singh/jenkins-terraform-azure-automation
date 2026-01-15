@@ -10,6 +10,11 @@ variable "resource_group_location" {
     description = "Location of the Resource Group"
 }
 
+variable "public_key_content" {
+  type        = string
+  description = "The content of the ssh public key"
+}
+
 variable "vm_size"{
     type = string
     default = "Standard_B1s"
