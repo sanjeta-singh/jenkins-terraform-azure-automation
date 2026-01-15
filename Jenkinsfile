@@ -6,6 +6,7 @@ pipeline {
         ARM_CLIENT_SECRET   = credentials('ARM_CLIENT_SECRET')
         ARM_TENANT_ID       = credentials('ARM_TENANT_ID')
         ARM_SUBSCRIPTION_ID = credentials('ARM_SUBSCRIPTION_ID')
+        SSH_PUBLIC_KEY = credentials('vm_public_key')
     }
 
     stages {
