@@ -43,13 +43,12 @@ pipeline {
             }
         }
         
-        // TEMPORARY STAGE TO FORCE REPLACEMENT OF VNET
-        stage('Terraform Taint VNet') {
+        // TEMPORARY STAGE TO DELETE EVERYTHING
+        stage('Terraform Destroy Everything') {
             steps {
                 dir('terraform') {
-                    // This command tells Azure to destroy the old network and build a fresh one
-                    sh 'terraform taint azurerm_virtual_network.vnet_dev'
-                }  
+                    sh 'terraform destroy --auto-approve'
+                }
             }
         }
 
