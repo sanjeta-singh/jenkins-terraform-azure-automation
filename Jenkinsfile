@@ -10,7 +10,6 @@ pipeline {
     }
 
     stages {
-
         stage('Build Application') {
             steps {
                 sh 'pwd'
@@ -41,6 +40,16 @@ pipeline {
                 dir('terraform') {
                     sh 'terraform plan'
                 }
+            }
+        }
+        
+        // TEMPORARY STAGE TO FORCE REPLACEMENT OF VNET
+        stage('Terraform Taint VNet') {
+            steps {
+                dir('terraform') {
+                    // This command tells Azure to destroy the old network and build a fresh one
+                    sh 'terraform taint azurerm_virtual_network.vnet_dev'
+                }  
             }
         }
 
