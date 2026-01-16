@@ -42,15 +42,6 @@ pipeline {
                 }
             }
         }
-        
-        // TEMPORARY STAGE TO DELETE EVERYTHING
-        stage('Terraform Destroy Everything') {
-            steps {
-                dir('terraform') {
-                    sh 'terraform destroy --auto-approve'
-                }
-            }
-        }
 
         stage('Terraform Apply') {
             steps {
