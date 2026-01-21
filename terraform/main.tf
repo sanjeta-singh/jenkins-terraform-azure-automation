@@ -50,7 +50,7 @@ resource "azurerm_network_security_group" "nsg" {
     access                     = "Allow"
     protocol                   = "Tcp"
     source_port_range          = "*"
-    destination_port_range     = ["80", "22"]
+    destination_port_range     = 80
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
@@ -96,32 +96,23 @@ resource "azurerm_linux_virtual_machine" "vm" {
   }
 
   source_image_reference {
-   publisher = "Canonical"
-   offer     = "0001-com-ubuntu-server-jammy"
-   sku       = "22_04-lts"
-   version   = "latest"
+    publisher = "Canonical"
+    offer     = "0001-com-ubuntu-server-jammy"
+    sku       = "22_04-lts"
+    version   = "latest"
   }
+
+  # THIS IS THE CORRECT WAY:
+  custom_data = base64encode(<<-EOF
+    #!/bin/bash
+    sudo apt-get update
+    sudo apt-get install -y nginx
+    sudo systemctl start nginx
+    sudo systemctl enable nginx
+    sudo mkdir -p /var/www/html
+    echo '<html><body><h1>Hello from Jenkins + Terraform + Azure</h1></body></html>' | sudo tee /var/www/html/index.html
+  EOF
+  )
 }
 
-# Simple SSH commands to install web server
-resource "null_resource" "deploy_website" {
-  depends_on = [azurerm_linux_virtual_machine.vm]
 
-  connection {
-    type        = "ssh"
-    user        = var.admin_username_vm
-    host        = azurerm_public_ip.pip.ip_address
-    private_key = var.ssh_private_key
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-      "sudo apt-get update",
-      "sudo apt-get install -y nginx",
-      "sudo systemctl start nginx",
-      "sudo systemctl enable nginx",
-      "sudo mkdir -p /var/www/html",
-      "echo '<html><body><h1>Hello from Jenkins + Terraform + Azure</h1></body></html>' | sudo tee /var/www/html/index.html"
-    ]
-  }
-}
