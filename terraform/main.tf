@@ -111,7 +111,7 @@ resource "null_resource" "deploy_website" {
     type        = "ssh"
     user        = var.admin_username_vm
     host        = azurerm_public_ip.pip.ip_address
-    private_key = file("~/.ssh/id_rsa")  # Your local key
+    private_key = var.ssh_private_key
   }
 
   provisioner "remote-exec" {
